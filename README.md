@@ -7,7 +7,7 @@ The game does not allow data to be streamed out while combat is happening.  Only
 ### On-going development
 ##### Motor Control
 The motorized rumble pack control is pretty straightforward and not likely to change. A DC motor controller lets you control the speed of a motor by powering a high amperage motor with a low amperage signal from a micontroller.  The 293D is a really popular bidirectional motor control chip for <600ma at 4.5v-36v.   Using pulse-width modulation, you basically power the motor in short bursts.  The slower you want the motor, the longer the power is off.  If you want the max speed, the motor is powered 100% of the time.  So to control the motor speed, you just need a signal that you can vary the on/off state fairly quickly.   
-
+![293D Pinout](/Images/293D Pinout.PNG)
 ##### Potential Audio Output
 Because you are limited to extracting data from the software in a non-live way, a method using hardware could be used instead.
 * Data might be able to get exported from the game in the form of live running mp3.  A series of mp3 files could be made that encodes the desired level of vibration (based on damage) that is read by a microntroller directly controller the rumble pack.  I figure the mp3 file could be direct recordings of a UART sending out 0->10 in binary.
