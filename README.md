@@ -1,4 +1,4 @@
-###Rumble Pit WoW Addon and hardware
+### Rumble Pit WoW Addon and hardware
 This is the addon that adds rumble functionality to WoW DPS charts.
 *bullet
   *another bullet
