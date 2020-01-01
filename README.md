@@ -1,6 +1,10 @@
 ## Rumble Pit WoW Addon and hardware
 ### Objective: Make a device that can read data out of the world of warcraft game and adjust a motorized rumble pack based on damage done to give player live feedback 
-This is the addon that adds rumble functionality to WoW DPS charts.
+
+#### Limitations
+The game does not allow data to be streamed out while combat is happening.  Only after combat can logs etc be read to figure out damage done by the group.  Alledgely this is to deter botters from extracting too much data out of game live.
+
+
 * bullet
   * another bullet*
 1. sdf
