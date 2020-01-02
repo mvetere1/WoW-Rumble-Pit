@@ -45,8 +45,10 @@ Based on the selection for pin S2 and S3, you can detect how much of that color 
 
 There's also the option of switching the full scale output frequency at 2%, 20% or 100%.  The faster the frequency, the quicker  you can get average of 100 cycles for example but the sampling device would need to be able to keep up.  I chose 2% because that is still 200hz so 50 cycles could be sampled in 250ms, defintely fast enough for this application.
 
+![Color Settings](/Images/SettingForColorDetection.PNG)
+
 This method seems to be the most viable to far but it would probably need a type of calibration because once you change position of the sensor pointed on the screen, the min/max frequency changes.  it probably has to do with the positioning and reflection off the screen.  After installing on the screen with ambient lighting running, you would get the max and min frequency switching from red to black.  You would then need to program this back into the microcontroller thats calculating frequency so you can properly map max frequency to 100% duty cycle for max motor speed.  The min frequency would be 0% duty cycle, no motor speed.
 
 
 
-![Color Settings](/Images/SettingForColorDetection.PNG)
+
