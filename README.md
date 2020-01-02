@@ -29,7 +29,17 @@ A third way would be the have the box adjust the shade of black or white.  That 
   * Cons - Color sensing might need a lite-calibration.  Output data format for color is probably more complicated than voltage.
   
 ### 2.Options tried
-
+#### Optical LED transitor circuit
 The first method I tried was the first listed optical choice.  I wanted to see if a simple light detector circuit would be sensitive enough to detect a white box vs a black box on a computer screen.  Since I had the parts, I went with the following:
 ![amplifier schematic](/Images/PhotoDiodeSchematic.PNG)
-Transitor used was a common 2N222.  The most sensitive combination of parts I found was an orange LED and a 470k resistor.  The higher the R, the more gain.  Basically, the LED is abl
+Transitor used was a common NPN 2N222.  The most sensitive combination of parts I found was an orange LED and a 470k resistor.  The higher the R, the more gain.  When light of the same color hits the led, a small current is generated, so with the transistor applying a large gain, the voltage at the collector can vary up to Vp to respond to changes in light.  When the LED in this circuit has another LED of the same type blasting full strength right next to it, the voltage drops to 0v.  When in just ambient light, voltage is 5v.  So if the white box on the screen put out enough light, to drop voltage to 0, this the timing of the light pulses could be used to PWM the motor to the correct speed.
+
+The issue is that the LCD monitor does not put out enough light at the right frequency to have any voltage response that could be used for PWM of the motor.  Potentially a light detector circuit that is more appropriate just an led and transistor would work better but that is unavailable right now.
+
+#### Optical Color light to frequency converter
+I tried a module based on the TSC3200 chip that is used as a color sensor.    
+
+![Color Sensor](/Images/ColortoFreqDiagram.PNG)
+Based on the selection for pin S2 and S3, you can detect how much of that color is present where the sensor/chip is pointing. 
+
+![Color Settings](/Images/SettingForColorDetection.PNG)
