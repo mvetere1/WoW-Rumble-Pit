@@ -6,7 +6,7 @@ The game does not allow data to be streamed out while combat is happening.  Only
 
 ### 1. Initial Thoughts and Development
 #### Motor Control
-The motorized rumble pack control is pretty straightforward and not likely to change. A DC motor controller lets you control the speed of a motor by powering a high amperage motor with a low amperage signal from a micontroller.  The 293D is a really popular bidirectional motor control chip for <600ma at 4.5v-36v.   Using pulse-width modulation, you basically power the motor in short bursts.  The slower you want the motor, the longer the power is off.  If you want the max speed, the motor is powered 100% of the time.  So to control the motor speed, you just need a signal that you can vary the on/off state fairly quickly.   
+The motorized rumble pack control is pretty straightforward and not likely to change. A DC motor controller lets you control the speed of a motor by powering a high amperage motor with a low amperage signal from a micontroller.  The 293D is a really popular bidirectional motor control chip for <600ma at 4.5v-36v.   Using pulse-width modulation, you basically power the motor in short bursts.  The slower you want the motor, the longer the power is off.  If you want the max speed, the motor is powered 100% of the time.  So to control the motor speed, you just need a signal that you can vary the on/off state fairly quickly.  Sources for images can be found in Usefulinks.txt.
 
 ![293D Pinout](/Images/293DPinout.PNG)
 
@@ -40,6 +40,13 @@ The issue is that the LCD monitor does not put out enough light at the right fre
 I tried a module based on the TSC3200 chip that is used as a color sensor.    
 
 ![Color Sensor](/Images/ColortoFreqDiagram.PNG)
-Based on the selection for pin S2 and S3, you can detect how much of that color is present where the sensor/chip is pointing. 
+
+Based on the selection for pin S2 and S3, you can detect how much of that color is present where the sensor/chip is pointing. If I have it set to red, a full red color will produce 250hz while black would produce 370hz.  So if you have 10 divisions, each divisions would have a range of ~12hz.  You would probably need to sample for 100ms+ to get a good average of frequency but the 10 levels could probably be done.  
+
+There's also the option of switching the full scale output frequency at 2%, 20% or 100%.  The faster the frequency, the quicker  you can get average of 100 cycles for example but the sampling device would need to be able to keep up.  I chose 2% because that is still 200hz so 50 cycles could be sampled in 250ms, defintely fast enough for this application.
+
+This method seems to be the most viable to far but it would probably need a type of calibration because once you change position of the sensor pointed on the screen, the min/max frequency changes.  it probably has to do with the positioning and reflection off the screen.  After installing on the screen with ambient lighting running, you would get the max and min frequency switching from red to black.  You would then need to program this back into the microcontroller thats calculating frequency so you can properly map max frequency to 100% duty cycle for max motor speed.  The min frequency would be 0% duty cycle, no motor speed.
+
+
 
 ![Color Settings](/Images/SettingForColorDetection.PNG)
