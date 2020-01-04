@@ -41,9 +41,9 @@ I tried a module based on the TSC3200 chip that is used as a color sensor.
 
 ![Color Sensor](/Images/ColortoFreqDiagram.PNG)
 
-Based on the selection for pin S2 and S3, you can detect how much of that color is present where the sensor/chip is pointing. If I have it set to red, a full red color will produce 250hz while black would produce 370hz.  So if you have 10 divisions, each divisions would have a range of ~12hz.  You would probably need to sample for 100ms+ to get a good average of frequency but the 10 levels could probably be done.  
+Based on the selection for pin S2 and S3, you can detect how much of that color is present where the sensor/chip is pointing. If I have it set to red, a full red color will produce 370hz while black would produce 250hz.  A decent oscilloscope will show you apprximate freuqnecy of the output.  So if you have 10 divisions, each divisions would have a range of ~12hz.  You would probably need to sample for 100ms+ to get a good average of frequency but the 10 levels could probably be done.  
 
-There's also the option of switching the full scale output frequency at 2%, 20% or 100%.  The faster the frequency, the quicker  you can get average of 100 cycles for example but the sampling device would need to be able to keep up.  I chose 2% because that is still 200hz so 50 cycles could be sampled in 250ms, defintely fast enough for this application.
+There's also the option of switching the full scale output frequency at 2%, 20% or 100%.  The faster the frequency, the quicker  you can get an average of 100 cycles for example but the sampling device would need to be able to keep up.  I chose 2% because that is still 250hz+ so 100 cycles could be sampled in 400ms, defintely fast enough for this application.  Updating the motor speed 2 times a second would be pretty smooth.
 
 ![Color Settings](/Images/SettingForColorDetection.PNG)
 
