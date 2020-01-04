@@ -49,7 +49,7 @@ There's also the option of switching the full scale output frequency at 2%, 20% 
 
 This method seems to be the most viable to far but it would probably need a type of calibration because once you change position of the sensor pointed on the screen, the min/max frequency changes.  Tt probably has to do with the positioning and reflection off the screen.  After installing on the screen with ambient lighting running, you would get the max and min frequency switching from red to black.  You would then need to program this back into the microcontroller thats calculating frequency so you can properly map max frequency to 100% duty cycle for max motor speed.  The min frequency would be 0% duty cycle, no motor speed.
 
-I decided to go with the red color selection at 2% full scale frequency, and am planning for black to be ~250hz and red to be ~370hz.  Going with 10 divisions (10%, 20%, 30%.. etc motor strength) means each power level will have a 12hz bucket.  The equation is: % Duty cycle = (output frequenxy[hz] - 250[hz])(0.8[%]/[hz]).  This equation would change depending on the specific frequencies that red and black produce on that particular setup.
+I decided to go with the red color selection at 2% full scale frequency, and am planning for black to be ~250hz and red to be ~370hz.  Going with 10 divisions (10%, 20%, 30%.. etc motor strength) means each power level will have a 12hz bucket.  I am interpolating the data here but in reality it might not be so linear.  The equation is: % Duty cycle = (output frequenxy[hz] - 250[hz])(0.8[%]/[hz]).  This equation would change depending on the specific frequencies that red and black produce on that particular setup.
 
 
 ![Frequency Response](/Images/FrequencyConversion.png)
