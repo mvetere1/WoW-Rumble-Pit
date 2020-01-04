@@ -12,6 +12,8 @@ void setup()
   Serial.begin(9600);
   pinMode(7, INPUT);
   pinMode(11,OUTPUT);
+  //TCCR2B = TCCR2B & B11111000 | B00000110; //122 hz PWM
+  TCCR2B = TCCR2B & B11111000 | B00000111;  //30 hz pwm
 }
 
 void loop() {
@@ -22,7 +24,15 @@ void loop() {
   }
   frequency = frequency/cycleCount;
   dutyCycle = (frequency - xMin)*slope;
-  
+
+  if(dutyCycle > 100)
+  {
+    dutyCycle = 100;
+  }
+  if(dutyCycle < 0)
+  {
+    dutyCycle = 0;
+  }
   analogWrite(11,int(dutyCycle*2.55));
   
   Serial.println(frequency);
