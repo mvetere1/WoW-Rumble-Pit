@@ -41,14 +41,15 @@ I tried a module based on the TSC3200 chip that is used as a color sensor.
 
 ![Color Sensor](/Images/ColortoFreqDiagram.PNG)
 
-Based on the selection for pin S2 and S3, you can detect how much of that color is present where the sensor/chip is pointing. If I have it set to red, a full red color will produce 370hz while black would produce 250hz.  A decent oscilloscope will show you apprximate freuqnecy of the output.  So if you have 10 divisions, each divisions would have a range of ~12hz.  You would probably need to sample for 100ms+ to get a good average of frequency but the 10 levels could probably be done.  
+Based on the selection for pin S2 and S3, you can detect how much of that color is present where the sensor/chip is pointing. If I have it set to red, a full red color will produce 370hz while black would produce 250hz.  A decent oscilloscope will show you apprximate frequency of the output.  So if you have 10 divisions, each divisions would have a range of ~12hz.  You would probably need to sample for 100ms+ to get a good average of frequency but the 10 levels could probably be done.  
 
 There's also the option of switching the full scale output frequency at 2%, 20% or 100%.  The faster the frequency, the quicker  you can get an average of 100 cycles for example but the sampling device would need to be able to keep up.  I chose 2% because that is still 250hz+ so 100 cycles could be sampled in 400ms, defintely fast enough for this application.  Updating the motor speed 2 times a second would be pretty smooth.
 
 ![Color Settings](/Images/SettingForColorDetection.PNG)
 
-This method seems to be the most viable to far but it would probably need a type of calibration because once you change position of the sensor pointed on the screen, the min/max frequency changes.  it probably has to do with the positioning and reflection off the screen.  After installing on the screen with ambient lighting running, you would get the max and min frequency switching from red to black.  You would then need to program this back into the microcontroller thats calculating frequency so you can properly map max frequency to 100% duty cycle for max motor speed.  The min frequency would be 0% duty cycle, no motor speed.
+This method seems to be the most viable to far but it would probably need a type of calibration because once you change position of the sensor pointed on the screen, the min/max frequency changes.  Tt probably has to do with the positioning and reflection off the screen.  After installing on the screen with ambient lighting running, you would get the max and min frequency switching from red to black.  You would then need to program this back into the microcontroller thats calculating frequency so you can properly map max frequency to 100% duty cycle for max motor speed.  The min frequency would be 0% duty cycle, no motor speed.
+
+I decided to go with the red color selection at 2% full scale frequency, and am planning for black to be ~250hz and red to be ~370hz.  Going with 10 divisions (10%, 20%, 30%.. etc motor strength) means each power level will have a 12hz bucket.  The equation is: % Duty cycle = (output frequenxy[hz] - 250[hz])*(0.8[%]/[hz]).  This equation would change depending on the specific frequencies that red and black produce on that particular setup.
 
 
-
-
+![Color Settings](/Images/FrequencyConversion.PNG)
