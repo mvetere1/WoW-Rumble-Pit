@@ -52,4 +52,4 @@ This method seems to be the most viable to far but it would probably need a type
 I decided to go with the red color selection at 2% full scale frequency, and am planning for black to be ~250hz and red to be ~370hz.  Going with 10 divisions (10%, 20%, 30%.. etc motor strength) means each power level will have a 12hz bucket.  The equation is: % Duty cycle = (output frequenxy[hz] - 250[hz])(0.8[%]/[hz]).  This equation would change depending on the specific frequencies that red and black produce on that particular setup.
 
 
-![Frequency Response](/Images/FrequencyConversion.PNG)
+![Frequency Response](/Images/FrequencyConversion.png)
