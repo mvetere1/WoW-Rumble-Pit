@@ -9,7 +9,10 @@ void setup()
 }
 
 void loop() {
-  durationUs = pulseIn(pin, HIGH);
-  frequency = 1000000/durationUs;
+  for (int i = 0; i < 100; i++)
+  {
+     durationUs = pulseIn(pin, HIGH);
+     frequency = 1000000/durationUs;
+  }
   Serial.println(frequency);
 }
