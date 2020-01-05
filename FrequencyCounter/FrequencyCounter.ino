@@ -3,8 +3,8 @@ unsigned long durationUs = 0;
 float frequency = 0.0f;
 float dutyCycle = 0;
 const int cycleCount = 100;
-const int xMin = 247;
-const int xMax = 352;
+const int xMin = 675;
+const int xMax = 1250;
 const float slope = (100)/float((xMax-xMin));
 
 void setup() 
@@ -29,7 +29,7 @@ void loop() {
   {
     dutyCycle = 100;
   }
-  if(dutyCycle < 0)
+  if(dutyCycle < 5)
   {
     dutyCycle = 0;
   }
