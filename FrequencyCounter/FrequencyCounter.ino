@@ -3,8 +3,8 @@ unsigned long durationUs = 0;
 float frequency = 0.0f;
 float dutyCycle = 0;
 const int cycleCount = 100;
-const int xMin = 675;
-const int xMax = 1250;
+const int xMin = 190;
+const int xMax = 300;
 const float slope = (100)/float((xMax-xMin));
 
 void setup() 

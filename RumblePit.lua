@@ -71,10 +71,10 @@ a.texture:SetColorTexture(0.0, 0.0, 0.0, 1)
 return 
 end
 
-
+--local currentCombat = Details:GetCurrentCombat() --may be useful for getting current combat
 local returnValue = RumblePit:counter(4,3,5)
 print(returnValue)
 --RumblePit:RumblePit()
 --RumblePit:createBox()
 newBox=RumblePit:createRedBox()
-
+RumblePit:setBoxColorBlack(newBox)
