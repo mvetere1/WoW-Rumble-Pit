@@ -57,3 +57,4 @@ I decided to go with the red color selection at 2% full scale frequency, and am 
 #### Microntroller Frequency Counting
 
 The output of the sensor needs to be plugged into something that can convert the frequency into a PWN signal.  Based on the one off nature of this project, I'm going with an arduino uno.  
+update 05Jun20
