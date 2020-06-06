@@ -7,6 +7,8 @@ const int xMin = 190;
 const int xMax = 300;
 const float slope = (100)/float((xMax-xMin));
 
+//new stuff, adding pot voltage reading
+
 void setup() 
 {
   Serial.begin(9600);
