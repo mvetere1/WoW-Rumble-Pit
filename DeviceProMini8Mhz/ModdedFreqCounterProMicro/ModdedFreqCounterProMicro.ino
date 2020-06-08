@@ -16,14 +16,14 @@ void setup()
 
 void loop() {
   if (xMin && xMax){
-    float frequency = getFrequency();
-    dutyCycle = freqToDutyCycle(frequency);
-    dutyCycle = processDutyCycle(dutyCycle);
-  
-    analogWrite(11,int(dutyCycle));
+      float frequency = getFrequency();
+      dutyCycle = freqToDutyCycle(frequency);
+      dutyCycle = processDutyCycle(dutyCycle);
     
-    Serial.println(frequency);
-    Serial.println(dutyCycle);
+      analogWrite(11,int(dutyCycle));
+      
+      Serial.println(frequency);
+      Serial.println(dutyCycle);
   }
 }
 void updateXMin()
