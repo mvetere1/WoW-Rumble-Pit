@@ -1,9 +1,6 @@
+volatile int xMin = 0;
+volatile int xMax = 0;
 float dutyCycle = 0;
-volatile int xMin = 190;
-volatile int xMax = 300;
-const float slope = (100)/float((xMax-xMin));
-
-//new stuff, adding pot voltage reading
 
 void setup() 
 {
@@ -18,30 +15,32 @@ void setup()
 }
 
 void loop() {
-  float frequency = getFrequency();
-  dutyCycle = freqToDutyCycle(frequency);
-  dutyCycle = clampDutyCycle(dutyCycle);
-
-  analogWrite(11,int(dutyCycle*2.55));
+  if (xMin && xMax){
+    float frequency = getFrequency();
+    dutyCycle = freqToDutyCycle(frequency);
+    dutyCycle = processDutyCycle(dutyCycle);
   
-  Serial.println(frequency);
-  Serial.println(dutyCycle);
+    analogWrite(11,int(dutyCycle));
+    
+    Serial.println(frequency);
+    Serial.println(dutyCycle);
+  }
 }
 void updateXMin()
 {
-  xMin = 99;
+  xMin = getFrequency();
   //need to get current freq when block is black
 }
 
 void updateXMax()
 {
-  xMax = 193;
+  xMax = getFrequency();
   //need to get current freq when block is red
 }
 
 float freqToDutyCycle(float freq)
 {
-
+  float slope = (100)/float((xMax-xMin));
   dutyCycle = (freq - xMin)*slope;
 
   return dutyCycle;
@@ -61,8 +60,8 @@ float getFrequency()
   frequency = frequency/cycleCount;
   return frequency;
 }
-
-float clampDutyCycle(float dutyCycle)
+//clamps and * by 2.55 for outputting
+float processDutyCycle(float dutyCycle)
 {
   if(dutyCycle > 100)
   {
@@ -73,7 +72,7 @@ float clampDutyCycle(float dutyCycle)
     dutyCycle = 0;
   }
   
-  return dutyCycle;
+  return dutyCycle*2.55;
 
 }
 //
