@@ -1,11 +1,12 @@
 volatile int xMin = 0;
 volatile int xMax = 0;
-float dutyCycle = 0;
+
+  float dutyCycle = 0;
 
 void setup() 
 {
   Serial.begin(9600);
-  pinMode(7, INPUT);
+  pinMode(7, INPUT); //will prob need to switch to 4 for the micro pro circuit
   pinMode(11,OUTPUT);
   //TCCR2B = TCCR2B & B11111000 | B00000110; //122 hz PWM
   TCCR2B = TCCR2B & B11111000 | B00000111;  //30 hz pwm
