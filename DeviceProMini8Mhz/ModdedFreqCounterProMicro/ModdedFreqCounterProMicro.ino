@@ -16,6 +16,7 @@ void setup()
 }
 
 void loop() {
+  //xMin and xMax are only set via button press interrupts
   if (xMin && xMax){
       float frequency = getFrequency();
       dutyCycle = freqToDutyCycle(frequency);
