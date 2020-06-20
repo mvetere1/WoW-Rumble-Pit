@@ -302,7 +302,7 @@ F 3 "" H 8950 2850 50  0001 C CNN
 $EndComp
 Connection ~ 4150 3550
 $Comp
-L Arduino_Pro_Mini:Arduino_Pro_Mini X1
+L TrialBBConversion-rescue:Arduino_Pro_Mini-Arduino_Pro_Mini X1
 U 1 1 5EE644F2
 P 6000 3600
 F 0 "X1" H 6000 2353 60  0000 C CNN
