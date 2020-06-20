@@ -86,7 +86,7 @@
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory "/plots"))
+      (outputdirectory "Gerber Files/"))
   )
 
   (net 0 "")
@@ -2285,7 +2285,7 @@
   (segment (start 148.22 102.5) (end 144.5 102.5) (width 0.25) (layer F.Cu) (net 55))
   (segment (start 149.352 103.632) (end 148.22 102.5) (width 0.25) (layer F.Cu) (net 55))
 
-  (zone (net 50) (net_name 3.3vlabel) (layer F.Cu) (tstamp 5EED5DC0) (hatch edge 0.508)
+  (zone (net 50) (net_name 3.3vlabel) (layer F.Cu) (tstamp 5EEDC2B7) (hatch edge 0.508)
     (connect_pads (clearance 0.508))
     (min_thickness 0.254)
     (fill yes (arc_segments 32) (thermal_gap 0.508) (thermal_bridge_width 0.508))
@@ -3154,7 +3154,7 @@
       )
     )
   )
-  (zone (net 1) (net_name GND) (layer B.Cu) (tstamp 5EED5DBD) (hatch edge 0.508)
+  (zone (net 1) (net_name GND) (layer B.Cu) (tstamp 5EEDC2B4) (hatch edge 0.508)
     (connect_pads (clearance 0.508))
     (min_thickness 0.254)
     (fill yes (arc_segments 32) (thermal_gap 0.508) (thermal_bridge_width 0.508))
