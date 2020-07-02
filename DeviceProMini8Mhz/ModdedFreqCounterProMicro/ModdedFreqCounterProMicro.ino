@@ -110,7 +110,7 @@ float processDutyCycle(float dutyCycle)
 }
 void updateStatusLEDs(float dutyCycle)
 {
-  digitalWrite(9,HIGH);
+  digitalWrite(9,HIGH); // consider moving this to be in same spot to pin 14 on?
   
   if (dutyCycle > 20){
       digitalWrite(8,HIGH);
