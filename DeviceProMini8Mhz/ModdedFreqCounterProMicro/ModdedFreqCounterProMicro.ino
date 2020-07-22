@@ -1,5 +1,7 @@
-volatile int xMin = 0;
-volatile int xMax = 0;
+volatile int blackCalFlag = 0;
+volatile int redCalFlag = 0;
+int xMin = 0;
+int xMax = 0;
 
 //float dutyCycle = 0;
 
@@ -9,6 +11,10 @@ void setup()
   //Connections with other modules
   pinMode(10,INPUT); //Frequency read in from color sensor
   pinMode(11,OUTPUT); //PWM output to motor driver
+  
+  // For Button Press Interrupts
+  pinMode(2,INPUT); // For min cal (Black)
+  pinMode(3,INPUT); // For max cal (Red)
   
   //These output pinModes are for LED status stuff
   pinMode(4,OUTPUT); // Power 100% Blue or orange
@@ -39,20 +45,31 @@ float dutyCycle = 0;
 float processedDutyCycle = 0;
 while(1)
   {
+   if (blackCalFlag){
+    
+    xMin = getFrequency();      
+    blackCalFlag = 0;
+   }
+   if (redCalFlag){
+    xMax = getFrequency();
+    redCalFlag = 0;
+   }
   if (xMin && xMax)
     {
     digitalWrite(14,HIGH);
     while(1)
       {
+      Serial.println("Running");
       frequency = getFrequency();
       dutyCycle = freqToDutyCycle(frequency);
       
       processedDutyCycle = processDutyCycle(dutyCycle);
-      updateStatusLEDs(processedDutyCycle);
+      updateStatusLEDs(dutyCycle);
       analogWrite(11,int(processedDutyCycle));
       
-      Serial.println(frequency);
+      //Serial.println(frequency);
       Serial.println(processedDutyCycle);
+      Serial.println(dutyCycle);
       }
     }
   }
@@ -60,14 +77,16 @@ while(1)
 //need to get current freq when block is black
 void updateXMin()
 {
-  xMin = getFrequency();
+  blackCalFlag = 1;
+  //Serial.println("xMin interrupt");
   digitalWrite(12,HIGH);
   
 }
 //need to get current freq when block is red
 void updateXMax()
 {
-  xMax = getFrequency();
+  redCalFlag = 1;
+  //Serial.println("xMax interrupt");
   digitalWrite(13,HIGH);
   
 }
@@ -83,11 +102,11 @@ float getFrequency()
 {
   float frequency = 0.0f;
   unsigned long durationUs = 0;
-  const int cycleCount = 100;
+  const int cycleCount = 20;
   
   for (int i = 0; i < cycleCount; i++)
   {
-     durationUs = pulseIn(7, HIGH);
+     durationUs = pulseIn(10, HIGH);
      frequency += (1000000/durationUs)/2;
   }
   frequency = frequency/cycleCount;
