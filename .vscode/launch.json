@@ -5,7 +5,7 @@
             "type": "lua",
             "request": "launch",
             "name": "Launch",
-            "program": "${workspaceFolder}/src/main.lua"
+            "program": "../RumblePit.lua"
         }
     ]
 }
