@@ -1,80 +1,38 @@
-RumblePit = { }
-
-function RumblePit:HelloWorld()
-    message('Hello ' ..UnitName("player")..' '..UnitLevel("player") )
+function RumbleUpdate()
+   if (UnitAffectingCombat("insanobank") == true) then
+      local combat = Details:GetCurrentCombat()
+      local damageContainer = combat:GetContainer (DETAILS_ATTRIBUTE_DAMAGE)
+      
+      local actorsFound = 0
+      local totalDps = 0;
+      for i, actor in damageContainer:ListActors() do
+         if(actor:IsGroupPlayer()) then
+            actorsFound = actorsFound + 1
+            local totalDamage = actor.total
+            print('Total dmg: ', totalDamage)
+            local playerDps = totalDamage / combat:GetCombatTime()
+            totalDps = totalDps + playerDps 
+            print('DPS: ',playerDps)
+            
+            
+         end
+      end
+      RumblePit:setBoxColorRed(newBox,totalDps*0.1)
+      print('Total DPS:', totalDps)
+      print("# of players:", actorsFound) 
+   end
 end
 
-function RumblePit:HideGryphons()
-    MainMenuBarLeftEndCap:Hide()
-    MainMenuBarRightEndCap:Hide()
+local f = CreateFrame("Frame");
+f:SetScript("OnUpdate", function(self, sinceLastUpdate) f:onUpdate(sinceLastUpdate); end);
+
+
+function f:onUpdate(sinceLastUpdate)
+   self.sinceLastUpdate = (self.sinceLastUpdate or 0) + sinceLastUpdate;
+   if ( self.sinceLastUpdate >= 1 ) then -- in seconds
+      --RumblePit:HelloWorld()
+      --print('it worked')
+      RumbleUpdate()
+      self.sinceLastUpdate = 0;
+   end
 end
-
-function RumblePit:counter(a, b, c)
-	
-	local answer = a * b + c
-	
-	
-	
-	print(answer)
-	return answer
-end
-
-function RumblePit:getDmg()
-	
-local damageActor = Details:GetActor ("current", DETAILS_ATTRIBUTE_DAMAGE, Details.playername)
-local healingActor = Details:GetActor ("current", DETAILS_ATTRIBUTE_HEAL, Details.playername)
-
-local totalDamage, totalHeal = damageActor.total, healingActor.total
-
-local effectiveDps, effectiveHps = totalDamage / combat:GetCombatTime(), totalHeal / combat:GetCombatTime()
-local activeDps, activeHps = totalDamage / damageActor:Tempo(), totalHeal / healingActor:Tempo()
-print(totalDamage)
-
-end
-
-function RumblePit:createBox()
---MyFrame = CreateFrame("Frame")
-MyFrame:ClearAllPoints()
-MyFrame:SetBackdrop(StaticPopup1:GetBackdrop())
-MyFrame:SetHeight(200)
-MyFrame:SetWidth(200)
-
-
-MyFrame.text = MyFrame:CreateFontString(nil, "BACKGROUND", "GameFontNormal")
-MyFrame.text:SetAllPoints()
-MyFrame.text:SetText("Insert BP Here")
-MyFrame:SetPoint("CENTER", 500, 0)
-
-
-end
-function RumblePit:createRedBox()
-local RedBox = CreateFrame("Frame", nil, UIParent)
-RedBox:SetSize(250, 250)
-RedBox:SetPoint("CENTER", 550, -200)
-RedBox.texture = RedBox:CreateTexture(nil, "BACKGROUND")
-RedBox.texture:SetAllPoints(true)
---RedBox.texture:SetTexture(1.0, 0.0, 0.0, 0.5)
-RedBox.texture:SetColorTexture(1.0, 1.0, 1.0, 1)
-
-return RedBox
-end
-
-function RumblePit:setBoxColorRed(a,b)
-
-a.texture:SetColorTexture(b, 0.0, 0.0, 1)
-return 
-end
-
-function RumblePit:setBoxColorBlack(a)
-
-a.texture:SetColorTexture(0.0, 0.0, 0.0, 1)
-return 
-end
-
---local currentCombat = Details:GetCurrentCombat() --may be useful for getting current combat
-local returnValue = RumblePit:counter(4,3,5)
-print(returnValue)
---RumblePit:RumblePit()
---RumblePit:createBox()
-newBox=RumblePit:createRedBox()
-RumblePit:setBoxColorBlack(newBox)
