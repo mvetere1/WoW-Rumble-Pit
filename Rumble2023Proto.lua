@@ -1,4 +1,32 @@
+RumblePit = { }
+
+function RumblePit:createRedBox()
+   local RedBox = CreateFrame("Frame", nil, UIParent)
+   RedBox:SetSize(250, 250)
+   RedBox:SetPoint("CENTER", 550, -200)
+   RedBox.texture = RedBox:CreateTexture(nil, "BACKGROUND")
+   RedBox.texture:SetAllPoints(true)
+   --RedBox.texture:SetTexture(1.0, 0.0, 0.0, 0.5)
+   RedBox.texture:SetColorTexture(1.0, 1.0, 1.0, 1)
+   
+   return RedBox
+end
+
+function RumblePit:setBoxColorRed(a,b)
+   
+   a.texture:SetColorTexture(b, 0.0, 0.0, 1)
+   return 
+end
+
+function RumblePit:setBoxColorBlack(a)
+   
+   a.texture:SetColorTexture(0.0, 0.0, 0.0, 1)
+   return 
+end
+
 function RumbleUpdate()
+   print("Update Called")
+   --print(UnitAffectingCombat("Dpsfool"))
    if (UnitAffectingCombat("Dpsfool") == true) then
       local combat = Details:GetCurrentCombat()
       local damageContainer = combat:GetContainer (DETAILS_ATTRIBUTE_DAMAGE)
@@ -21,10 +49,11 @@ function RumbleUpdate()
       print('Total DPS:', totalDps)
       print("# of players:", actorsFound) 
    end
+   
 end
 
 local f = CreateFrame("Frame");
-f:SetScript("OnUpdate", function(self, sinceLastUpdate) f:onUpdate(sinceLastUpdate); end);
+
 
 
 function f:onUpdate(sinceLastUpdate)
@@ -36,3 +65,8 @@ function f:onUpdate(sinceLastUpdate)
       self.sinceLastUpdate = 0;
    end
 end
+
+f:SetScript("OnUpdate", function(self, sinceLastUpdate) f:onUpdate(sinceLastUpdate); end);
+
+newBox=RumblePit:createRedBox()
+RumblePit:setBoxColorBlack(newBox)
