@@ -18,6 +18,10 @@ function RumblePit:setBoxColorRed(a,b)
    return 
 end
 
+function RumblePit:HelloWorld()
+   print("hello world")   
+end
+
 function RumblePit:setBoxColorBlack(a)
    
    a.texture:SetColorTexture(0.0, 0.0, 0.0, 1)
@@ -27,7 +31,7 @@ end
 function RumbleUpdate()
    print("Update Called")
    --print(UnitAffectingCombat("Dpsfool"))
-   if (UnitAffectingCombat("Dpsfool") == true) then
+   if (UnitAffectingCombat(UnitName("player")) == true) then
       local combat = Details:GetCurrentCombat()
       local damageContainer = combat:GetContainer (DETAILS_ATTRIBUTE_DAMAGE)
       
@@ -38,16 +42,20 @@ function RumbleUpdate()
             actorsFound = actorsFound + 1
             local totalDamage = actor.total
             print('Total dmg: ', totalDamage)
-            local playerDps = totalDamage / combat:GetCombatTime()
+            local playerDps = totalDamage / (combat:GetCombatTime() + 1)
             totalDps = totalDps + playerDps 
             print('DPS: ',playerDps)
             
             
          end
       end
-      RumblePit:setBoxColorRed(newBox,totalDps*0.1)
+      RumblePit:setBoxColorRed(newBox,totalDps*0.01)
       print('Total DPS:', totalDps)
       print("# of players:", actorsFound) 
+      
+   else
+      RumblePit:setBoxColorBlack(newBox)
+      
    end
    
 end
