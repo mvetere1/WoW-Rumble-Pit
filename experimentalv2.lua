@@ -1,16 +1,5 @@
-function createRedBox()
-    local RedBox = CreateFrame("Frame", nil, UIParent)
-    RedBox:SetSize(250, 250)
-    RedBox:SetPoint("CENTER", 550, -200)
-    RedBox.texture = RedBox:CreateTexture(nil, "BACKGROUND")
-    RedBox.texture:SetAllPoints(true)
-    --RedBox.texture:SetTexture(1.0, 0.0, 0.0, 0.5)
-    RedBox.texture:SetColorTexture(1.0, 1.0, 1.0, 1)
-    return RedBox
- end
- 
- RumblePit = {
-    
+RumblePit = {
+    enable = true,
     currentDPS = 0,
     currentBoxOpacity = 0;
     maxDPS = 0;
@@ -18,6 +7,35 @@ function createRedBox()
     dpsBox = 0
     
  }
+ 
+ function createRedBox()
+    print("Rumble Pit Started")
+    local RedBox = CreateFrame("Frame", nil, UIParent)
+    RedBox:SetSize(250, 250)
+    RedBox:SetPoint("CENTER", 550, -200)
+    RedBox.texture = RedBox:CreateTexture(nil, "BACKGROUND")
+    RedBox.texture:SetAllPoints(true)
+    --RedBox.texture:SetTexture(1.0, 0.0, 0.0, 0.5)
+    RedBox.texture:SetColorTexture(0, 0, 0, 1)
+    return RedBox
+ end
+ 
+ function setBoxColorRed(a,b)
+    a.texture:SetColorTexture(b, 0.0, 0.0, 1)
+    return 
+ end
+ 
+ function HelloWorld()
+    print("hello world")   
+ end
+ 
+ function setBoxColorBlack(a)
+    
+    a.texture:SetColorTexture(0.0, 0.0, 0.0, 1)
+    return 
+ end
+ 
+ 
  
  function RumblePit:new (max)
     o = o or {}
@@ -53,41 +71,27 @@ function createRedBox()
           
        end
     end
+    print('Players Found: ',actorsFound)
     return totalDps
  end
  
- 
- 
- 
- function setBoxColorRed(a,b)
-    a.texture:SetColorTexture(b, 0.0, 0.0, 1)
-    return 
- end
- 
- function HelloWorld()
-    print("hello world")   
- end
- 
- function setBoxColorBlack(a)
-    
-    a.texture:SetColorTexture(0.0, 0.0, 0.0, 1)
-    return 
- end
- 
  function RumblePit:updateBox()
-    print("Update Box Called")
-    --If in combat
-    if (UnitAffectingCombat(UnitName("player")) == true) then
-       self.currentDPS = calcDPS()
-       self.currentBoxOpacity =  self.currentDPS / self.maxDPS
-       setBoxColorRed(newBox,self.currentBoxOpacity)
-       print('Total DPS:', totalDps)
-       print("# of players:", actorsFound) 
-       
-    else
-       -- Not in comnbat, go dark
-       RumblePit:setBoxColorBlack(newBox)
-       
+    if (self.enable == true) then
+       --If in combat
+       if (UnitAffectingCombat(UnitName("player")) == true) then
+          print("Update Box Called in combat")
+          self.currentDPS = calcDPS()
+          self.currentBoxOpacity =  self.currentDPS / self.maxDPS
+          setBoxColorRed(self.dpsBox,self.currentBoxOpacity)
+          print('Total DPS:', self.currentDPS)
+          print("# of players:", actorsFound) 
+          
+       else
+          -- Not in comnbat, go dark
+          print("Update Box Called NOT in combat")
+          setBoxColorBlack(self.dpsBox)
+          
+       end
     end
     
  end
@@ -110,13 +114,13 @@ function createRedBox()
  
  --newBox=createRedBox()
  --setBoxColorBlack(newBox)
- newRumbleObj = RumblePit:new(500)
+ newRumbleObj = RumblePit:new(50)
  --f:SetScript("OnUpdate", function(self, sinceLastUpdate) f:onUpdate(sinceLastUpdate); end);
  --newObj:printStats()
  
  
  --C_Timer.NewTicker(2.5, function() print(GetTime()) end, 4)
- yadur = C_Timer.NewTicker(1, function() newRumbleObj:updateBox() end, 5)
+ yadur = C_Timer.NewTicker(1, function() newRumbleObj:updateBox() end, 0)
  ---yadur:Cancel()
  
  --while (toRun == true)
