@@ -12,10 +12,10 @@ RumblePit = {
     self.currentDmg = dmg
     self.inCombat = false
     self.dpsBox = 0
+    return o
     
  end
  
- newObj = RumblePit:new(33,true,66)
  
  function RumblePit:calcDPS()
     self.currentDmg = 99   
@@ -105,3 +105,6 @@ RumblePit = {
  
  newBox=RumblePit:createRedBox()
  RumblePit:setBoxColorBlack(newBox)
+ newObj = RumblePit:new(33,true,66)
+ newObj:printStats()
+ 

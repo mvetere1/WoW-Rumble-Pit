@@ -15,6 +15,13 @@ function Rectangle:new (o,length,breadth)
     print("The area of Rectangle is ",self.area)
  end
 
+ function Rectangle:printStats()
+    print(self.area)
+    print(self.length)
+
+ end
+
  r = Rectangle:new(nil,10,20)
 
  print(r.length)
+ r:printStats()
