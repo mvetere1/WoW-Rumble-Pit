@@ -10,9 +10,30 @@ RumblePit = {
  
  function createRedBox()
     print("Rumble Pit Started")
-    local RedBox = CreateFrame("Frame", nil, UIParent)
-    RedBox:SetSize(250, 250)
+    local RedBox = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+    RedBox:SetSize(350, 350)
     RedBox:SetPoint("CENTER", 550, -200)
+    RedBox:SetBackdrop(BACKDROP_TUTORIAL_16_16)
+    
+    RedBox.text = RedBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    RedBox.text:SetPoint("BOTTOM", RedBox, "TOP", 0, -20)
+    baseText = "Rumble Pit v2 0%"
+    
+    RedBox.text:SetText(baseText)
+    
+    RedBox:SetMovable(true)
+    RedBox:EnableMouse(true)
+    RedBox:RegisterForDrag("LeftButton")
+    RedBox:SetScript("OnDragStart", function(self, button)
+          self:StartMoving()
+          print("OnDragStart", button)
+    end)
+    RedBox:SetScript("OnDragStop", function(self)
+          self:StopMovingOrSizing()
+          print("OnDragStop")
+    end)
+    
+    
     RedBox.texture = RedBox:CreateTexture(nil, "BACKGROUND")
     RedBox.texture:SetAllPoints(true)
     --RedBox.texture:SetTexture(1.0, 0.0, 0.0, 0.5)
@@ -25,17 +46,11 @@ RumblePit = {
     return 
  end
  
- function HelloWorld()
-    print("hello world")   
- end
- 
  function setBoxColorBlack(a)
     
     a.texture:SetColorTexture(0.0, 0.0, 0.0, 1)
     return 
  end
- 
- 
  
  function RumblePit:new (max)
     o = o or {}
@@ -83,6 +98,14 @@ RumblePit = {
           self.currentDPS = calcDPS()
           self.currentBoxOpacity =  self.currentDPS / self.maxDPS
           setBoxColorRed(self.dpsBox,self.currentBoxOpacity)
+          
+          percentage = self.currentBoxOpacity
+          
+          baseText = "Rumble Pit v2 %.2f %%"
+          print(string.format(baseText, self.currentBoxOpacity))
+          
+          self.dpsBox.text:SetText(string.format(baseText, self.currentBoxOpacity*100))
+          
           print('Total DPS:', self.currentDPS)
           print("# of players:", actorsFound) 
           
@@ -90,44 +113,20 @@ RumblePit = {
           -- Not in comnbat, go dark
           print("Update Box Called NOT in combat")
           setBoxColorBlack(self.dpsBox)
+          self.currentDPS = 0
+          self.dpsBox.text:SetText("Rumble Pit v2 0 %")
           
        end
     end
     
  end
  
- --local f = CreateFrame("Frame");
  
- 
- 
- ---function f:onUpdate(sinceLastUpdate, box)
- ---  self.sinceLastUpdate = (self.sinceLastUpdate or 0) + sinceLastUpdate;
- ---  if ( self.sinceLastUpdate >= 1 ) then -- in seconds
- --RumblePit:HelloWorld()
- --print('it worked')
- ---     RumbleUpdate(box)
- ---     self.sinceLastUpdate = 0;
- ---   end
- ---end
- 
- 
- 
- --newBox=createRedBox()
- --setBoxColorBlack(newBox)
  newRumbleObj = RumblePit:new(50)
- --f:SetScript("OnUpdate", function(self, sinceLastUpdate) f:onUpdate(sinceLastUpdate); end);
- --newObj:printStats()
  
- 
- --C_Timer.NewTicker(2.5, function() print(GetTime()) end, 4)
  yadur = C_Timer.NewTicker(1, function() newRumbleObj:updateBox() end, 0)
  ---yadur:Cancel()
  
- --while (toRun == true)
- --do
- -- os.time()
- -- print("go 1")
- --end
  
  
  
