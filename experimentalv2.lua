@@ -1,5 +1,5 @@
 RumblePit = {
-    enable = true,
+    enable = false,
     currentDPS = 0,
     currentBoxOpacity = 0;
     maxDPS = 0;
@@ -36,7 +36,6 @@ RumblePit = {
     
     RedBox.texture = RedBox:CreateTexture(nil, "BACKGROUND")
     RedBox.texture:SetAllPoints(true)
-    --RedBox.texture:SetTexture(1.0, 0.0, 0.0, 0.5)
     RedBox.texture:SetColorTexture(0, 0, 0, 1)
     return RedBox
  end
@@ -78,10 +77,9 @@ RumblePit = {
        if(actor:IsGroupPlayer()) then
           actorsFound = actorsFound + 1
           local totalDamage = actor.total
-          print('Total dmg: ', totalDamage)
           local playerDps = totalDamage / (combat:GetCombatTime() + 1)
           totalDps = totalDps + playerDps 
-          print('DPS: ',playerDps)
+          
           
           
        end
@@ -94,7 +92,7 @@ RumblePit = {
     if (self.enable == true) then
        --If in combat
        if (UnitAffectingCombat(UnitName("player")) == true) then
-          print("Update Box Called in combat")
+          --print("Update Box Called in combat")
           self.currentDPS = calcDPS()
           self.currentBoxOpacity =  self.currentDPS / self.maxDPS
           setBoxColorRed(self.dpsBox,self.currentBoxOpacity)
@@ -106,8 +104,8 @@ RumblePit = {
           
           self.dpsBox.text:SetText(string.format(baseText, self.currentBoxOpacity*100))
           
-          print('Total DPS:', self.currentDPS)
-          print("# of players:", actorsFound) 
+          --print('Total DPS:', self.currentDPS)
+          -- print("# of players:", actorsFound) 
           
        else
           -- Not in comnbat, go dark
@@ -126,6 +124,8 @@ RumblePit = {
  
  yadur = C_Timer.NewTicker(1, function() newRumbleObj:updateBox() end, 0)
  ---yadur:Cancel()
+ 
+ -- WIll start disabled.  In chat, need to run /lua newRumbleObj.maxDPS= 5000 then newRumbleObj.enable=true
  
  
  
