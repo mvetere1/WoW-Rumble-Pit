@@ -1,6 +1,6 @@
 -- Create the dialog box for getting max dps
 newText = 0
-
+bigGlobal = 9
 StaticPopupDialogs["EXAMPLE_HELLOWORLD"] = {
    text = "Enter max DPS of group:",
    button1 = "I'm ready",
@@ -114,6 +114,7 @@ end
 
 function RumblePit:updateBox()
    print("update")
+   print("big global is: " .. bigGlobal)
    if (self.enable == true) then
       --If in combat
       --self.dpsBox.text:SetText("Rumble Pit v2 0 %")
@@ -151,6 +152,10 @@ end
 rumbleObj = RumblePit:new(50)
 
 yadur = C_Timer.NewTicker(1, function() rumbleObj:updateBox() end, 0)
+
+newVar = popupBox.editBox:GetText()
+print(newVar)
+print("v2 print is:" .. popupBox.editBox:GetText())
 ---yadur:Cancel()
 
 -- WIll start disabled.  In chat, need to run /lua newRumbleObj.maxDPS= 5000 then newRumbleObj.enable=true
