@@ -43,7 +43,7 @@ function createRedBox()
    RedBox:SetBackdrop(BACKDROP_TUTORIAL_16_16)
    
    RedBox.text = RedBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-   RedBox.text:SetPoint("BOTTOM", RedBox, "TOP", 0, -60)
+   RedBox.text:SetPoint("BOTTOM", RedBox, "TOP", 0, -55)
    ----baseText = "Rumble Pit v2 0%"
    
    ------ RedBox.text:SetText(baseText)
@@ -117,7 +117,7 @@ function RumblePit:updateBox()
    if (self.enable == true) then
       --If in combat
       --self.dpsBox.text:SetText("Rumble Pit v2 0 %")
-      self.dpsBox.text:SetText("Rumble v2 \n Current DPS: " .. self.currentDPS .. "\n Max DPS: " .. self.maxDPS .. "\n % Power: " .. self.currentBoxOpacity)
+      self.dpsBox.text:SetText("Rumble v2 \n Current DPS: " .. self.currentDPS .. "\n Max DPS: " .. self.maxDPS .. "\n % Power: " .. self.currentBoxOpacity*100)
       if (UnitAffectingCombat(UnitName("player")) == true) then
          --print("Update Box Called in combat")
          self.currentDPS = calcDPS()
@@ -139,6 +139,7 @@ function RumblePit:updateBox()
          --print("Update Box Called NOT in combat")
          setBoxColorBlack(self.dpsBox)
          self.currentDPS = 0
+         self.currentBoxOpacity = 0
          --self.dpsBox.text:SetText("Rumble Pit v2 0 %")
          
       end
