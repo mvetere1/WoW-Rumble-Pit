@@ -43,10 +43,10 @@ function createRedBox()
    RedBox:SetBackdrop(BACKDROP_TUTORIAL_16_16)
    
    RedBox.text = RedBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-   RedBox.text:SetPoint("BOTTOM", RedBox, "TOP", 0, -20)
-   baseText = "Rumble Pit v2 0%"
+   RedBox.text:SetPoint("BOTTOM", RedBox, "TOP", 0, -60)
+   ----baseText = "Rumble Pit v2 0%"
    
-   RedBox.text:SetText(baseText)
+   ------ RedBox.text:SetText(baseText)
    
    RedBox:SetMovable(true)
    RedBox:EnableMouse(true)
@@ -91,11 +91,6 @@ function RumblePit:new (max)
    
 end
 
-function RumblePit:printStats()
-   print(self.currentDPS)
-   print(self.inCombat)
-end
-
 function calcDPS()
    local combat = Details:GetCurrentCombat()
    local damageContainer = combat:GetContainer (DETAILS_ATTRIBUTE_DAMAGE)
@@ -118,8 +113,11 @@ function calcDPS()
 end
 
 function RumblePit:updateBox()
+   print("update")
    if (self.enable == true) then
       --If in combat
+      --self.dpsBox.text:SetText("Rumble Pit v2 0 %")
+      self.dpsBox.text:SetText("Rumble v2 \n Current DPS: " .. self.currentDPS .. "\n Max DPS: " .. self.maxDPS .. "\n % Power: " .. self.currentBoxOpacity)
       if (UnitAffectingCombat(UnitName("player")) == true) then
          --print("Update Box Called in combat")
          self.currentDPS = calcDPS()
@@ -131,7 +129,7 @@ function RumblePit:updateBox()
          baseText = "Rumble Pit v2 %.2f %%"
          --print(string.format(baseText, self.currentBoxOpacity))
          
-         self.dpsBox.text:SetText(string.format(baseText, self.currentBoxOpacity*100))
+         --self.dpsBox.text:SetText(string.format(baseText, self.currentBoxOpacity*100))
          
          --print('Total DPS:', self.currentDPS)
          -- print("# of players:", actorsFound) 
@@ -141,7 +139,7 @@ function RumblePit:updateBox()
          --print("Update Box Called NOT in combat")
          setBoxColorBlack(self.dpsBox)
          self.currentDPS = 0
-         self.dpsBox.text:SetText("Rumble Pit v2 0 %")
+         --self.dpsBox.text:SetText("Rumble Pit v2 0 %")
          
       end
    end
